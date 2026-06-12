@@ -1,0 +1,25 @@
+import type { createTakt } from '@vskstudio/takt-core'
+
+export type TaktInstance = ReturnType<typeof createTakt>
+
+let _noop: TaktInstance | null = null
+let _warned = false
+
+export function noopTakt(): TaktInstance {
+  if (_noop) return _noop
+  const warnOnce = (): void => {
+    if (_warned) return
+    _warned = true
+    console.warn('[takt] useTakt() called before <Takt> mounted — returning a no-op instance.')
+  }
+  _noop = {
+    track: warnOnce,
+    pageview: warnOnce,
+    enableSpa: () => () => {},
+    enableOutbound: () => () => {},
+    enableFiles: () => () => {},
+    optOut: () => {},
+    optIn: () => {},
+  } as unknown as TaktInstance
+  return _noop
+}
