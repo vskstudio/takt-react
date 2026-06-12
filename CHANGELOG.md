@@ -1,5 +1,16 @@
 # @vskstudio/takt-react
 
+## 0.2.0
+
+### Minor Changes
+
+- Align with `@vskstudio/takt-core` 0.2 (peer dependency bumped to `>=0.2.0`):
+  custom event `props` and `revenue` now flow through `useTakt()`, `useTaktEvent()`
+  and `<TaktEvent>`.
+  - Ref-forwarding `<TaktEvent>` and StrictMode-correct `<Takt>` boot.
+  - Fully typed no-op fallback and structural `TaktInstance` declaration emit.
+  - SSR import safety hardened (lazy element class for Node).
+
 ## 0.1.0
 
 ### Minor Changes
