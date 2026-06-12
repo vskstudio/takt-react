@@ -10,9 +10,9 @@
   "jsdelivr": "./dist/element/index.js",
   "sideEffects": ["./dist/element/index.js"],
   "keywords": ["analytics", "privacy", "react", "takt"],
-  "homepage": "https://github.com/uyangx/takt-react#readme",
-  "repository": { "type": "git", "url": "git+https://github.com/uyangx/takt-react.git" },
-  "bugs": { "url": "https://github.com/uyangx/takt-react/issues" },
+  "homepage": "https://github.com/vskstudio/takt-react#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/vskstudio/takt-react.git" },
+  "bugs": { "url": "https://github.com/vskstudio/takt-react/issues" },
   "publishConfig": { "access": "public" },
   "exports": {
     ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "default": "./dist/index.js" },
