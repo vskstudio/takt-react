@@ -1,6 +1,12 @@
 import type { createTakt } from '@vskstudio/takt-core'
 
-export type TaktInstance = ReturnType<typeof createTakt>
+// Public structural surface of core's Analytics. Picking the public methods
+// drops the class's private members, which otherwise make the emitted .d.ts
+// for context/store values invalid (TS4094).
+export type TaktInstance = Pick<
+  ReturnType<typeof createTakt>,
+  'track' | 'pageview' | 'enableSpa' | 'enableOutbound' | 'enableFiles' | 'optOut' | 'optIn'
+>
 
 let _noop: TaktInstance | null = null
 let _warned = false
