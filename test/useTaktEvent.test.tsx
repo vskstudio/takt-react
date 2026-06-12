@@ -29,6 +29,17 @@ describe('useTaktEvent', () => {
     expect(coreTrack).toHaveBeenCalledWith('Buy', { revenue: { amount: '9', currency: 'EUR' } })
   })
 
+  it('resolves the instance at click time, not at render time', () => {
+    // Store is null during render (set in beforeEach).
+    const { result } = renderHook(() => useTaktEvent({ name: 'Late' }))
+    // Instance arrives only after render, before the click.
+    const track = vi.fn()
+    taktStore.value = { track } as unknown as TaktInstance
+    result.current.onClick()
+    expect(track).toHaveBeenCalledWith('Late', undefined)
+    expect(coreTrack).not.toHaveBeenCalled()
+  })
+
   it('passes undefined opts when neither props nor revenue set', () => {
     const track = vi.fn()
     taktStore.value = { track } as unknown as TaktInstance

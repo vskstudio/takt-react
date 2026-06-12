@@ -30,12 +30,18 @@ describe('<Takt>', () => {
   })
 
   it('honors feature toggles and disposes on unmount', () => {
-    const dispose = vi.fn()
-    enableOutbound.mockReturnValueOnce(dispose)
+    const disposeSpa = vi.fn()
+    const disposeOutbound = vi.fn()
+    enableSpa.mockReturnValueOnce(disposeSpa)
+    enableOutbound.mockReturnValueOnce(disposeOutbound)
     const { unmount } = render(<Takt outbound files={['pdf']}>x</Takt>)
     expect(enableOutbound).toHaveBeenCalledOnce()
     expect(enableFiles).toHaveBeenCalledWith(['pdf'])
+    expect(disposeSpa).not.toHaveBeenCalled()
+    expect(disposeOutbound).not.toHaveBeenCalled()
     unmount()
+    expect(disposeSpa).toHaveBeenCalledOnce()
+    expect(disposeOutbound).toHaveBeenCalledOnce()
     expect(taktStore.value).toBeNull()
   })
 
