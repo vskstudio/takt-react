@@ -1,0 +1,4 @@
+[
+  { "name": "index (gzip, react + core external)", "path": "dist/index.js", "limit": "3 kB" },
+  { "name": "element (gzip, self-contained)", "path": "dist/element/index.js", "limit": "4 kB" }
+]

@@ -1,0 +1,53 @@
+{
+  "name": "@vskstudio/takt-react",
+  "version": "0.1.0",
+  "description": "Idiomatic React wrapper for Takt privacy-friendly analytics",
+  "license": "MIT",
+  "author": "VSK Studio",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "unpkg": "./dist/element/index.js",
+  "jsdelivr": "./dist/element/index.js",
+  "sideEffects": ["./dist/element/index.js"],
+  "keywords": ["analytics", "privacy", "react", "takt"],
+  "homepage": "https://github.com/uyangx/takt-react#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/uyangx/takt-react.git" },
+  "bugs": { "url": "https://github.com/uyangx/takt-react/issues" },
+  "publishConfig": { "access": "public" },
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./element": { "types": "./dist/element/index.d.ts", "import": "./dist/element/index.js" }
+  },
+  "files": ["dist"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "size": "size-limit",
+    "prepublishOnly": "pnpm build",
+    "release": "pnpm build && changeset publish"
+  },
+  "peerDependencies": {
+    "@vskstudio/takt-core": ">=0.2.0",
+    "react": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.31.0",
+    "@size-limit/preset-small-lib": "^11.1.6",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.0.0",
+    "@vskstudio/takt-core": "^0.2.0",
+    "eslint": "^9.0.0",
+    "jsdom": "^25.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "size-limit": "^11.1.6",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
