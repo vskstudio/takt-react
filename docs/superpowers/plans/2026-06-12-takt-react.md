@@ -40,9 +40,9 @@
   "jsdelivr": "./dist/element/index.js",
   "sideEffects": ["./dist/element/index.js"],
   "keywords": ["analytics", "privacy", "react", "takt"],
-  "homepage": "https://github.com/uyangx/takt-react#readme",
-  "repository": { "type": "git", "url": "git+https://github.com/uyangx/takt-react.git" },
-  "bugs": { "url": "https://github.com/uyangx/takt-react/issues" },
+  "homepage": "https://github.com/vskstudio/takt-react#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/vskstudio/takt-react.git" },
+  "bugs": { "url": "https://github.com/vskstudio/takt-react/issues" },
   "publishConfig": { "access": "public" },
   "exports": {
     ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
@@ -199,7 +199,7 @@ dist
 }
 ```
 
-- [ ] **Step 10: Create `LICENSE`** — MIT, copyright line `Copyright (c) 2026 uyangx` (copy the exact body from `/home/shan/dev/takt-vue/LICENSE`).
+- [ ] **Step 10: Create `LICENSE`** — MIT, copyright line `Copyright (c) 2026 VSK Studio` (copy the exact body from `/home/shan/dev/takt-vue/LICENSE`).
 
 - [ ] **Step 11: Install and verify tooling**
 
@@ -1070,7 +1070,7 @@ git -c user.name='Akayashuu' -c user.email='sauvageleo1@gmail.com' commit -m "do
 
 ```bash
 cd /home/shan/dev/takt-react
-gh repo create uyangx/takt-react --public --source=. --remote=origin --description "Idiomatic React wrapper for Takt privacy-friendly analytics"
+gh repo create vskstudio/takt-react --public --source=. --remote=origin --description "Idiomatic React wrapper for Takt privacy-friendly analytics"
 git branch -M main
 git push -u origin main
 ```
@@ -1089,7 +1089,7 @@ cat > /tmp/prot.json <<'EOF'
   "required_pull_request_reviews": { "dismiss_stale_reviews": true, "require_code_owner_reviews": false, "required_approving_review_count": 1 },
   "restrictions": null }
 EOF
-gh api --method PUT repos/uyangx/takt-react/branches/main/protection --input /tmp/prot.json --jq '.required_status_checks.contexts'
+gh api --method PUT repos/vskstudio/takt-react/branches/main/protection --input /tmp/prot.json --jq '.required_status_checks.contexts'
 rm -f /tmp/prot.json
 ```
 

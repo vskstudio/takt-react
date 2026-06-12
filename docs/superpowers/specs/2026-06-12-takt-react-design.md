@@ -72,7 +72,7 @@ vitest + `@testing-library/react` + jsdom (and one Node-environment file for SSR
 
 - Hardened workflow mirrored from siblings: SHA-pinned actions, `permissions: contents: read`, `concurrency` cancel, `timeout-minutes`, `persist-credentials: false`, npm provenance (`id-token: write` + `NPM_CONFIG_PROVENANCE`).
 - Matrix `react: [18, 19]`.
-- New **public** GitHub repo `uyangx/takt-react`.
+- New **public** GitHub repo `vskstudio/takt-react`.
 - Branch protection on `main` matching the siblings (required `build` checks, 1 review, no force-push/deletions) — applied after the first green CI.
 
 ## Out of scope (YAGNI)
