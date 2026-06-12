@@ -1,0 +1,6 @@
+export { Takt, type TaktProps } from './Takt'
+export { useTakt } from './useTakt'
+export { useTaktEvent, type TaktEventParams } from './useTaktEvent'
+export { TaktEvent } from './TaktEvent'
+export type { TaktInstance } from './store'
+export type { Config } from '@vskstudio/takt-core'
