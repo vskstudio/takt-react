@@ -15,8 +15,9 @@
   "bugs": { "url": "https://github.com/uyangx/takt-react/issues" },
   "publishConfig": { "access": "public" },
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-    "./element": { "types": "./dist/element/index.d.ts", "import": "./dist/element/index.js" }
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "default": "./dist/index.js" },
+    "./element": { "types": "./dist/element/index.d.ts", "import": "./dist/element/index.js", "default": "./dist/element/index.js" },
+    "./package.json": "./package.json"
   },
   "files": ["dist"],
   "engines": { "node": ">=18" },

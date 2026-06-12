@@ -18,14 +18,16 @@ export function noopTakt(): TaktInstance {
     _warned = true
     console.warn('[takt] useTakt() called before <Takt> mounted — returning a no-op instance.')
   }
+  const noDispose = (): (() => void) => () => {}
+  const track: TaktInstance['track'] = () => warnOnce()
   _noop = {
-    track: warnOnce,
-    pageview: warnOnce,
-    enableSpa: () => () => {},
-    enableOutbound: () => () => {},
-    enableFiles: () => () => {},
+    track,
+    pageview: () => warnOnce(),
+    enableSpa: noDispose,
+    enableOutbound: noDispose,
+    enableFiles: noDispose,
     optOut: () => {},
     optIn: () => {},
-  } as unknown as TaktInstance
+  }
   return _noop
 }

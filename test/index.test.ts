@@ -6,6 +6,8 @@ describe('public API surface', () => {
     expect(typeof api.Takt).toBe('function')
     expect(typeof api.useTakt).toBe('function')
     expect(typeof api.useTaktEvent).toBe('function')
-    expect(typeof api.TaktEvent).toBe('function')
+    // forwardRef components are exotic objects, not plain functions.
+    expect(api.TaktEvent).toBeTypeOf('object')
+    expect(api.TaktEvent.displayName).toBe('TaktEvent')
   })
 })

@@ -34,4 +34,38 @@ describe('<TaktEvent>', () => {
     expect(childClick).toHaveBeenCalledOnce()
     expect(track).toHaveBeenCalledOnce()
   })
+
+  it('forwards an incoming ref onto the child DOM node', () => {
+    let node: HTMLButtonElement | null = null
+    const { getByText } = render(
+      <TaktEvent name="X" ref={(el: HTMLButtonElement | null) => { node = el }}>
+        <button>Go</button>
+      </TaktEvent>,
+    )
+    expect(node).toBe(getByText('Go'))
+  })
+
+  it("composes with the child's pre-existing ref", () => {
+    let childNode: HTMLButtonElement | null = null
+    let ownNode: HTMLButtonElement | null = null
+    const { getByText } = render(
+      <TaktEvent name="X" ref={(el: HTMLButtonElement | null) => { ownNode = el }}>
+        <button ref={(el) => { childNode = el }}>Go</button>
+      </TaktEvent>,
+    )
+    const btn = getByText('Go')
+    expect(childNode).toBe(btn)
+    expect(ownNode).toBe(btn)
+  })
+
+  it('warns and returns the child unchanged for a non-element child in dev', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const { container } = render(<TaktEvent name="X">plain text</TaktEvent>)
+    expect(container.textContent).toBe('plain text')
+    expect(warn).toHaveBeenCalledTimes(1)
+    expect(warn).toHaveBeenCalledWith(
+      '[takt] <TaktEvent> expects a single React element child; tracking is disabled.',
+    )
+    warn.mockRestore()
+  })
 })

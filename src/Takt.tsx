@@ -36,6 +36,9 @@ export function Takt({
   // Read the latest props inside the mount effect without re-running it.
   const props = useRef({ domain, endpoint, outbound, files, spa, respectDnt, excludeLocalhost })
   props.current = { domain, endpoint, outbound, files, spa, respectDnt, excludeLocalhost }
+  // Survives StrictMode's setup→cleanup→setup, so the remount boot can tell it
+  // is the same component and skip a duplicate initial pageview.
+  const didPageview = useRef(false)
 
   useEffect(() => {
     const p = props.current
@@ -49,7 +52,10 @@ export function Takt({
     if (p.spa) disposers.push(takt.enableSpa())
     if (p.outbound) disposers.push(takt.enableOutbound())
     if (p.files) disposers.push(takt.enableFiles(Array.isArray(p.files) ? p.files : undefined))
-    takt.pageview()
+    if (!didPageview.current) {
+      didPageview.current = true
+      takt.pageview()
+    }
 
     setInstance(takt)
     taktStore.value = takt
@@ -63,3 +69,5 @@ export function Takt({
 
   return <TaktContext.Provider value={instance}>{children}</TaktContext.Provider>
 }
+
+Takt.displayName = 'Takt'

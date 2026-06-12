@@ -79,6 +79,8 @@ export function SignupButton() {
 | `respectDnt`       | `boolean`             | `true`               | Suppress events when the browser's Do Not Track is enabled.    |
 | `excludeLocalhost` | `boolean`             | `true`               | Suppress events on localhost and private IP ranges.            |
 
+> Config props are read once when `<Takt>` mounts. Changing them afterwards has no effect — remount the component to reconfigure.
+
 ## Declarative click tracking
 
 Two equivalent ways to track a click without writing a handler.
