@@ -1,0 +1,37 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { render, fireEvent } from '@testing-library/react'
+
+vi.mock('@vskstudio/takt-core', () => ({ track: vi.fn() }))
+
+import { TaktEvent } from '../src/TaktEvent'
+import { taktStore } from '../src/store'
+import type { TaktInstance } from '../src/noop'
+
+beforeEach(() => {
+  vi.clearAllMocks()
+  taktStore.value = null
+})
+
+describe('<TaktEvent>', () => {
+  it('tracks on click via the resolved instance', () => {
+    const track = vi.fn()
+    taktStore.value = { track } as unknown as TaktInstance
+    const { getByText } = render(
+      <TaktEvent name="Signup"><button>Go</button></TaktEvent>,
+    )
+    fireEvent.click(getByText('Go'))
+    expect(track).toHaveBeenCalledWith('Signup', undefined)
+  })
+
+  it('composes the child existing onClick', () => {
+    const track = vi.fn()
+    taktStore.value = { track } as unknown as TaktInstance
+    const childClick = vi.fn()
+    const { getByText } = render(
+      <TaktEvent name="X"><button onClick={childClick}>Go</button></TaktEvent>,
+    )
+    fireEvent.click(getByText('Go'))
+    expect(childClick).toHaveBeenCalledOnce()
+    expect(track).toHaveBeenCalledOnce()
+  })
+})
