@@ -126,6 +126,32 @@ import '@vskstudio/takt-react/element'
 
 Privacy attributes (`respect-dnt`, `exclude-localhost`, `spa`) are on by default and only disabled by an explicit `"false"`/`"0"`. Presence flags (`outbound`, `files`) activate when the attribute is present.
 
+## Widgets
+
+Thin wrappers over Takt's server-rendered widgets. `<TaktBadge>` renders an `<img>` (the badge SVG); `<TaktEmbed>` renders an `<iframe>` (the embed dashboard). Both forward standard element attributes (`className`, `style`, …).
+
+```tsx
+import { TaktBadge, TaktEmbed } from '@vskstudio/takt-react'
+
+export function Footer() {
+  return (
+    <>
+      <TaktBadge domain="example.com" variant="d" glyph="dash" />
+      <TaktEmbed domain="example.com" theme="dark" />
+    </>
+  )
+}
+```
+
+For dashboards you build yourself, `createStats` is re-exported from core:
+
+```ts
+import { createStats } from '@vskstudio/takt-react'
+
+const stats = createStats({ domain: 'example.com' })
+const summary = await stats.summary({ period: '7d' })
+```
+
 ## SSR / Next.js
 
 The main entry ships with a built-in `'use client'` banner, and `<Takt>` boots inside a mount effect, so nothing touches `window`/`document` on the server. In the Next.js App Router, render `<Takt>` from a client component (or the App Router root) and the rest of the API works unchanged. Importing `@vskstudio/takt-react/element` on the server is a no-op — registration is guarded behind a `customElements` check.

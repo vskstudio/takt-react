@@ -1,6 +1,6 @@
 {
   "name": "@vskstudio/takt-react",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Idiomatic React wrapper for Takt privacy-friendly analytics",
   "license": "MIT",
   "author": "VSK Studio",
@@ -8,19 +8,45 @@
   "types": "./dist/index.d.ts",
   "unpkg": "./dist/element/index.js",
   "jsdelivr": "./dist/element/index.js",
-  "sideEffects": ["./dist/element/index.js"],
-  "keywords": ["analytics", "privacy", "react", "takt"],
+  "sideEffects": [
+    "./dist/element/index.js"
+  ],
+  "keywords": [
+    "analytics",
+    "privacy",
+    "react",
+    "takt"
+  ],
   "homepage": "https://github.com/vskstudio/takt-react#readme",
-  "repository": { "type": "git", "url": "git+https://github.com/vskstudio/takt-react.git" },
-  "bugs": { "url": "https://github.com/vskstudio/takt-react/issues" },
-  "publishConfig": { "access": "public" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vskstudio/takt-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vskstudio/takt-react/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "default": "./dist/index.js" },
-    "./element": { "types": "./dist/element/index.d.ts", "import": "./dist/element/index.js", "default": "./dist/element/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./element": {
+      "types": "./dist/element/index.d.ts",
+      "import": "./dist/element/index.js",
+      "default": "./dist/element/index.js"
+    },
     "./package.json": "./package.json"
   },
-  "files": ["dist"],
-  "engines": { "node": ">=18" },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
@@ -32,7 +58,7 @@
     "e2e": "playwright test"
   },
   "peerDependencies": {
-    "@vskstudio/takt-core": ">=0.2.0",
+    "@vskstudio/takt-core": ">=0.3.0",
     "react": "^18 || ^19"
   },
   "devDependencies": {
@@ -42,7 +68,7 @@
     "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^4.3.0",
     "@types/react": "^19.0.0",
-    "@vskstudio/takt-core": "^0.2.0",
+    "@vskstudio/takt-core": "^0.3.0",
     "eslint": "^9.0.0",
     "jsdom": "^25.0.0",
     "react": "^19.0.0",
