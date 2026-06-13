@@ -25,13 +25,14 @@ export function TaktEmbed({
 }: TaktEmbedProps) {
   return (
     <iframe
-      src={embedUrl(domain, { host, theme, lang })}
+      title={title}
       width={width}
       height={height}
-      title={title}
+      referrerPolicy="strict-origin-when-cross-origin"
       loading="lazy"
       style={{ border: 0, ...style }}
       {...rest}
+      src={embedUrl(domain, { host, theme, lang })}
     />
   )
 }

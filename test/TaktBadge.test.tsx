@@ -25,4 +25,14 @@ describe('<TaktBadge>', () => {
     const img = getByAltText('stats') as HTMLImageElement
     expect(img.className).toBe('b')
   })
+
+  it('does not let a consumer-passed src override the built URL', () => {
+    const { getByAltText } = render(
+      // @ts-expect-error src is wrapper-controlled and omitted from props
+      <TaktBadge domain="example.com" src="https://evil.example/x.svg" />,
+    )
+    const img = getByAltText('takt') as HTMLImageElement
+    expect(img.getAttribute('src')).toBe(badgeUrl.mock.results[0]!.value)
+    expect(img.getAttribute('src')).not.toContain('evil')
+  })
 })

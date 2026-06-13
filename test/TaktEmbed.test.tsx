@@ -19,7 +19,18 @@ describe('<TaktEmbed>', () => {
     expect(frame.getAttribute('width')).toBe('404')
     expect(frame.getAttribute('height')).toBe('264')
     expect(frame.getAttribute('loading')).toBe('lazy')
+    expect(frame.getAttribute('referrerpolicy')).toBe('strict-origin-when-cross-origin')
     expect(frame.style.border).toBe('0px')
+  })
+
+  it('does not let a consumer-passed src override the built URL', () => {
+    const { getByTitle } = render(
+      // @ts-expect-error src is wrapper-controlled and omitted from props
+      <TaktEmbed domain="example.com" src="https://evil.example/x" />,
+    )
+    const frame = getByTitle('takt') as HTMLIFrameElement
+    expect(frame.getAttribute('src')).toBe(embedUrl.mock.results[0]!.value)
+    expect(frame.getAttribute('src')).not.toContain('evil')
   })
 
   it('merges passthrough style and honors overrides', () => {

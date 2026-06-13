@@ -143,6 +143,8 @@ export function Footer() {
 }
 ```
 
+The optional `host` prop must be an absolute `http(s)` URL (validated by core); `src` is wrapper-controlled and cannot be overridden.
+
 For dashboards you build yourself, `createStats` is re-exported from core:
 
 ```ts

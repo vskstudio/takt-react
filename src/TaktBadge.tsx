@@ -17,11 +17,11 @@ export interface TaktBadgeProps extends Omit<ImgHTMLAttributes<HTMLImageElement>
 export function TaktBadge({ domain, variant, glyph, lang, host, alt = 'takt', ...rest }: TaktBadgeProps) {
   return (
     <img
-      src={badgeUrl(domain, { host, variant, glyph, lang })}
       alt={alt}
       loading="lazy"
       decoding="async"
       {...rest}
+      src={badgeUrl(domain, { host, variant, glyph, lang })}
     />
   )
 }

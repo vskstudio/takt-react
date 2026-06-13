@@ -1,5 +1,11 @@
 # @vskstudio/takt-react
 
+## 0.3.1
+
+### Patch Changes
+
+- Harden widgets: render `src` after `{...rest}` so a consumer-passed `src` can no longer override the built URL, and add a default `referrerPolicy="strict-origin-when-cross-origin"` to `<TaktEmbed>` (overridable). Document that `host` must be an absolute http(s) URL.
+
 ## 0.3.0
 
 ### Minor Changes
