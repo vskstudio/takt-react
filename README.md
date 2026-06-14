@@ -143,7 +143,7 @@ export function Footer() {
 }
 ```
 
-The optional `host` prop must be an absolute `http(s)` URL (validated by core); `src` is wrapper-controlled and cannot be overridden.
+The badge `alt` defaults to `"takt"` but is overridable. The embed `<iframe>` is hardened: it ships `sandbox="allow-scripts allow-same-origin"` and a fixed `referrerPolicy="strict-origin-when-cross-origin"`, both applied after your props so a consumer cannot weaken them. The optional `host` prop must be an absolute `http(s)` URL (validated by core, which reduces it to its origin); `src` is wrapper-controlled and cannot be overridden.
 
 For dashboards you build yourself, `createStats` is re-exported from core:
 
