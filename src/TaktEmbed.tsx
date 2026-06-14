@@ -28,11 +28,12 @@ export function TaktEmbed({
       title={title}
       width={width}
       height={height}
-      referrerPolicy="strict-origin-when-cross-origin"
       loading="lazy"
       style={{ border: 0, ...style }}
       {...rest}
       src={embedUrl(domain, { host, theme, lang })}
+      referrerPolicy="strict-origin-when-cross-origin"
+      sandbox="allow-scripts allow-same-origin"
     />
   )
 }
