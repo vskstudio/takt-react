@@ -35,6 +35,17 @@ describe('<takt-analytics> element', () => {
     el.remove()
   })
 
+  it('forwards script-origin to the core', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('script-origin', 'https://t.example.com')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledWith(
+      expect.objectContaining({ scriptOrigin: 'https://t.example.com' }),
+    )
+    el.remove()
+  })
+
   it('enables outbound/files when present as attributes', () => {
     defineTaktElement()
     const el = document.createElement('takt-analytics')

@@ -9,6 +9,8 @@ export interface TaktProps {
   domain?: string
   /** Ingestion endpoint. Defaults to `/api/event`. */
   endpoint?: string
+  /** First-party origin to derive the endpoint from (`{origin}/api/event`); `endpoint` wins over it. */
+  scriptOrigin?: string
   /** Auto-track outbound link clicks. */
   outbound?: boolean
   /** Auto-track file downloads. Pass an array to restrict to those extensions. */
@@ -25,6 +27,7 @@ export interface TaktProps {
 export function Takt({
   domain,
   endpoint,
+  scriptOrigin,
   outbound = false,
   files = false,
   spa = true,
@@ -34,8 +37,8 @@ export function Takt({
 }: TaktProps) {
   const [instance, setInstance] = useState<TaktInstance | null>(null)
   // Read the latest props inside the mount effect without re-running it.
-  const props = useRef({ domain, endpoint, outbound, files, spa, respectDnt, excludeLocalhost })
-  props.current = { domain, endpoint, outbound, files, spa, respectDnt, excludeLocalhost }
+  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, respectDnt, excludeLocalhost })
+  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, respectDnt, excludeLocalhost }
   // Survives StrictMode's setup→cleanup→setup, so the remount boot can tell it
   // is the same component and skip a duplicate initial pageview.
   const didPageview = useRef(false)
@@ -45,6 +48,7 @@ export function Takt({
     const takt = createTakt({
       domain: p.domain,
       endpoint: p.endpoint,
+      scriptOrigin: p.scriptOrigin,
       respectDnt: p.respectDnt,
       excludeLocalhost: p.excludeLocalhost,
     })

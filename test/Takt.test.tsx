@@ -31,6 +31,13 @@ describe('<Takt>', () => {
     expect(taktStore.value).not.toBeNull()
   })
 
+  it('forwards scriptOrigin to createTakt', () => {
+    render(<Takt scriptOrigin="https://t.example.com">x</Takt>)
+    expect(createTakt).toHaveBeenCalledWith(
+      expect.objectContaining({ scriptOrigin: 'https://t.example.com' }),
+    )
+  })
+
   it('honors feature toggles and disposes on unmount', () => {
     const disposeSpa = vi.fn()
     const disposeOutbound = vi.fn()

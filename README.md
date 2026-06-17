@@ -73,6 +73,7 @@ export function SignupButton() {
 | ------------------ | --------------------- | -------------------- | -------------------------------------------------------------- |
 | `domain`           | `string`              | `location.hostname`  | Site identifier sent with every event.                         |
 | `endpoint`         | `string`              | `/api/event`         | Ingestion endpoint.                                            |
+| `scriptOrigin`     | `string`              | —                    | First-party origin to derive the endpoint from (`{origin}/api/event`) — your Takt domain or a custom domain to dodge ad-blockers (`endpoint` wins over it). |
 | `outbound`         | `boolean`             | `false`              | Auto-track outbound link clicks.                               |
 | `files`            | `boolean \| string[]` | `false`              | Auto-track file downloads; pass extensions to restrict.        |
 | `spa`              | `boolean`             | `true`               | Track SPA navigations (pushState/replaceState + popstate).     |
