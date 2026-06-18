@@ -17,6 +17,8 @@ export interface TaktProps {
   files?: boolean | string[]
   /** Track SPA navigations (history pushState/replaceState + popstate). */
   spa?: boolean
+  /** Report a `404` event when the page is an error page (`[data-takt-404]` / `<meta name="takt:404">` marker, or a 404 HTTP status). */
+  track404?: boolean
   /** Suppress events when the browser's Do Not Track is enabled. */
   respectDnt?: boolean
   /** Suppress events on localhost and private IP ranges. */
@@ -31,14 +33,15 @@ export function Takt({
   outbound = false,
   files = false,
   spa = true,
+  track404 = false,
   respectDnt = true,
   excludeLocalhost = true,
   children,
 }: TaktProps) {
   const [instance, setInstance] = useState<TaktInstance | null>(null)
   // Read the latest props inside the mount effect without re-running it.
-  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, respectDnt, excludeLocalhost })
-  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, respectDnt, excludeLocalhost }
+  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost })
+  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost }
   // Survives StrictMode's setup→cleanup→setup, so the remount boot can tell it
   // is the same component and skip a duplicate initial pageview.
   const didPageview = useRef(false)
@@ -56,6 +59,7 @@ export function Takt({
     if (p.spa) disposers.push(takt.enableSpa())
     if (p.outbound) disposers.push(takt.enableOutbound())
     if (p.files) disposers.push(takt.enableFiles(Array.isArray(p.files) ? p.files : undefined))
+    if (p.track404) disposers.push(takt.enable404())
     if (!didPageview.current) {
       didPageview.current = true
       takt.pageview()

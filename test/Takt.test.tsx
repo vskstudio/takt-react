@@ -2,13 +2,14 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import React from 'react'
 import { render } from '@testing-library/react'
 
-const { enableSpa, enableOutbound, enableFiles, pageview, createTakt } = vi.hoisted(() => {
+const { enableSpa, enableOutbound, enableFiles, enable404, pageview, createTakt } = vi.hoisted(() => {
   const enableSpa = vi.fn(() => vi.fn())
   const enableOutbound = vi.fn(() => vi.fn())
   const enableFiles = vi.fn(() => vi.fn())
+  const enable404 = vi.fn(() => vi.fn())
   const pageview = vi.fn()
-  const createTakt = vi.fn(() => ({ enableSpa, enableOutbound, enableFiles, pageview, track: vi.fn() }))
-  return { enableSpa, enableOutbound, enableFiles, pageview, createTakt }
+  const createTakt = vi.fn(() => ({ enableSpa, enableOutbound, enableFiles, enable404, pageview, track: vi.fn() }))
+  return { enableSpa, enableOutbound, enableFiles, enable404, pageview, createTakt }
 })
 
 vi.mock('@vskstudio/takt-core', () => ({ createTakt }))
@@ -57,6 +58,13 @@ describe('<Takt>', () => {
   it('does not enable spa when spa={false}', () => {
     render(<Takt spa={false}>x</Takt>)
     expect(enableSpa).not.toHaveBeenCalled()
+  })
+
+  it('enables 404 detection only when track404 is set', () => {
+    render(<Takt>x</Takt>)
+    expect(enable404).not.toHaveBeenCalled()
+    render(<Takt track404>x</Takt>)
+    expect(enable404).toHaveBeenCalledOnce()
   })
 
   it('provides the live instance via React context to useTakt()', () => {
