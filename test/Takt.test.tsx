@@ -68,7 +68,7 @@ describe('<Takt>', () => {
   })
 
   it('provides the live instance via React context to useTakt()', () => {
-    const created = { enableSpa, enableOutbound, enableFiles, pageview, track: vi.fn() }
+    const created = { enableSpa, enableOutbound, enableFiles, enable404, pageview, track: vi.fn() }
     createTakt.mockReturnValueOnce(created)
     let seen: unknown
     function Child() {
@@ -106,6 +106,7 @@ describe('<Takt>', () => {
           enableSpa: vi.fn(() => dispose),
           enableOutbound: vi.fn(() => vi.fn()),
           enableFiles: vi.fn(() => vi.fn()),
+          enable404: vi.fn(() => vi.fn()),
           pageview,
           track: vi.fn(),
         }
