@@ -70,6 +70,25 @@ describe('<takt-analytics> element', () => {
     el.remove()
   })
 
+  it('omits sampleRate when sample-rate attribute is absent', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledOnce()
+    expect(createTakt).not.toHaveBeenCalledWith(expect.objectContaining({ sampleRate: expect.anything() }))
+    el.remove()
+  })
+
+  it('omits sampleRate when sample-rate is malformed (NaN)', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('sample-rate', 'abc')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledOnce()
+    expect(createTakt).not.toHaveBeenCalledWith(expect.objectContaining({ sampleRate: expect.anything() }))
+    el.remove()
+  })
+
   it('forwards track-query presence as trackQuery: true', () => {
     defineTaktElement()
     const el = document.createElement('takt-analytics')
