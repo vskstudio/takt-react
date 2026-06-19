@@ -1,12 +1,14 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
-const { enableSpa, enableOutbound, enableFiles, pageview, createTakt } = vi.hoisted(() => {
+const { enableSpa, enableOutbound, enableFiles, enableTagged, pageview, createTakt } = vi.hoisted(() => {
   const enableSpa = vi.fn(() => vi.fn())
   const enableOutbound = vi.fn(() => vi.fn())
   const enableFiles = vi.fn(() => vi.fn())
+  const enable404 = vi.fn(() => vi.fn())
+  const enableTagged = vi.fn(() => vi.fn())
   const pageview = vi.fn()
-  const createTakt = vi.fn(() => ({ enableSpa, enableOutbound, enableFiles, pageview }))
-  return { enableSpa, enableOutbound, enableFiles, pageview, createTakt }
+  const createTakt = vi.fn(() => ({ enableSpa, enableOutbound, enableFiles, enable404, enableTagged, pageview }))
+  return { enableSpa, enableOutbound, enableFiles, enableTagged, pageview, createTakt }
 })
 vi.mock('@vskstudio/takt-core', () => ({ createTakt }))
 
@@ -57,5 +59,78 @@ describe('<takt-analytics> element', () => {
     expect(enableFiles).toHaveBeenCalledOnce()
     expect(enableSpa).not.toHaveBeenCalled()
     el.remove()
+  })
+
+  it('forwards sample-rate as sampleRate number', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('sample-rate', '0.5')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledWith(expect.objectContaining({ sampleRate: 0.5 }))
+    el.remove()
+  })
+
+  it('omits sampleRate when sample-rate attribute is absent', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledOnce()
+    expect(createTakt).not.toHaveBeenCalledWith(expect.objectContaining({ sampleRate: expect.anything() }))
+    el.remove()
+  })
+
+  it('omits sampleRate when sample-rate is malformed (NaN)', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('sample-rate', 'abc')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledOnce()
+    expect(createTakt).not.toHaveBeenCalledWith(expect.objectContaining({ sampleRate: expect.anything() }))
+    el.remove()
+  })
+
+  it('forwards track-query presence as trackQuery: true', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('track-query', '')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledWith(expect.objectContaining({ trackQuery: true }))
+    el.remove()
+  })
+
+  it('forwards query-params CSV as queryParams array', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('query-params', 'utm_source, utm_medium')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledWith(
+      expect.objectContaining({ queryParams: ['utm_source', 'utm_medium'] }),
+    )
+    el.remove()
+  })
+
+  it('forwards enabled="false" as enabled: false', () => {
+    defineTaktElement()
+    const el = document.createElement('takt-analytics')
+    el.setAttribute('enabled', 'false')
+    document.body.appendChild(el)
+    expect(createTakt).toHaveBeenCalledWith(expect.objectContaining({ enabled: false }))
+    el.remove()
+  })
+
+  it('calls enableTagged when tagged attribute is present; not called when absent', () => {
+    defineTaktElement()
+    const elWith = document.createElement('takt-analytics')
+    elWith.setAttribute('tagged', '')
+    document.body.appendChild(elWith)
+    expect(enableTagged).toHaveBeenCalledOnce()
+    elWith.remove()
+
+    vi.clearAllMocks()
+
+    const elWithout = document.createElement('takt-analytics')
+    document.body.appendChild(elWithout)
+    expect(enableTagged).not.toHaveBeenCalled()
+    elWithout.remove()
   })
 })

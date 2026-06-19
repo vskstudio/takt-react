@@ -58,7 +58,7 @@
     "e2e": "playwright test"
   },
   "peerDependencies": {
-    "@vskstudio/takt-core": ">=0.4.2",
+    "@vskstudio/takt-core": ">=0.5.0",
     "react": "^18 || ^19"
   },
   "devDependencies": {
@@ -68,7 +68,7 @@
     "@testing-library/react": "^16.1.0",
     "@vitejs/plugin-react": "^4.3.0",
     "@types/react": "^19.0.0",
-    "@vskstudio/takt-core": "^0.4.2",
+    "@vskstudio/takt-core": "^0.5.0",
     "eslint": "^9.0.0",
     "jsdom": "^25.0.0",
     "react": "^19.0.0",

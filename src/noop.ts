@@ -11,6 +11,7 @@ export type TaktInstance = Pick<
   | 'enableOutbound'
   | 'enableFiles'
   | 'enable404'
+  | 'enableTagged'
   | 'optOut'
   | 'optIn'
 >
@@ -34,6 +35,7 @@ export function noopTakt(): TaktInstance {
     enableOutbound: noDispose,
     enableFiles: noDispose,
     enable404: noDispose,
+    enableTagged: noDispose,
     optOut: () => {},
     optIn: () => {},
   }

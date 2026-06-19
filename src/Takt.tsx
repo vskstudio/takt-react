@@ -23,6 +23,18 @@ export interface TaktProps {
   respectDnt?: boolean
   /** Suppress events on localhost and private IP ranges. */
   excludeLocalhost?: boolean
+  /** Master on/off switch — set to `false` to disable all tracking at runtime. */
+  enabled?: boolean
+  /** Fraction of sessions to track (0–1). */
+  sampleRate?: number
+  /** Include the URL query string in pageview paths. */
+  trackQuery?: boolean
+  /** Query parameters to preserve when `trackQuery` is true; omit to keep all. */
+  queryParams?: string[]
+  /** Transform the URL before it is sent; dev-controlled — never build from user input. */
+  scrubUrl?: (url: string) => string
+  /** Auto-track `[data-takt-tag]` clicks. */
+  tagged?: boolean
   children?: ReactNode
 }
 
@@ -36,12 +48,18 @@ export function Takt({
   track404 = false,
   respectDnt = true,
   excludeLocalhost = true,
+  enabled,
+  sampleRate,
+  trackQuery,
+  queryParams,
+  scrubUrl,
+  tagged = false,
   children,
 }: TaktProps) {
   const [instance, setInstance] = useState<TaktInstance | null>(null)
   // Read the latest props inside the mount effect without re-running it.
-  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost })
-  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost }
+  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, scrubUrl, tagged })
+  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, scrubUrl, tagged }
   // Survives StrictMode's setup→cleanup→setup, so the remount boot can tell it
   // is the same component and skip a duplicate initial pageview.
   const didPageview = useRef(false)
@@ -54,12 +72,18 @@ export function Takt({
       scriptOrigin: p.scriptOrigin,
       respectDnt: p.respectDnt,
       excludeLocalhost: p.excludeLocalhost,
+      enabled: p.enabled,
+      sampleRate: p.sampleRate,
+      trackQuery: p.trackQuery,
+      queryParams: p.queryParams,
+      scrubUrl: p.scrubUrl,
     })
     const disposers: Array<() => void> = []
     if (p.spa) disposers.push(takt.enableSpa())
     if (p.outbound) disposers.push(takt.enableOutbound())
     if (p.files) disposers.push(takt.enableFiles(Array.isArray(p.files) ? p.files : undefined))
     if (p.track404) disposers.push(takt.enable404())
+    if (p.tagged) disposers.push(takt.enableTagged())
     if (!didPageview.current) {
       didPageview.current = true
       takt.pageview()

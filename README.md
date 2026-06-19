@@ -69,17 +69,23 @@ export function SignupButton() {
 
 ## `<Takt>` props
 
-| Prop               | Type                  | Default              | Description                                                     |
-| ------------------ | --------------------- | -------------------- | -------------------------------------------------------------- |
-| `domain`           | `string`              | `location.hostname`  | Site identifier sent with every event.                         |
-| `endpoint`         | `string`              | `/api/event`         | Ingestion endpoint.                                            |
-| `scriptOrigin`     | `string`              | —                    | First-party origin to derive the endpoint from (`{origin}/api/event`) — your Takt domain or a custom domain to dodge ad-blockers (`endpoint` wins over it). |
-| `outbound`         | `boolean`             | `false`              | Auto-track outbound link clicks.                               |
-| `files`            | `boolean \| string[]` | `false`              | Auto-track file downloads; pass extensions to restrict.        |
-| `spa`              | `boolean`             | `true`               | Track SPA navigations (pushState/replaceState + popstate).     |
-| `track404`         | `boolean`             | `false`              | Report a `404` event on error pages (`[data-takt-404]` / `<meta name="takt:404">` marker, or a 404 HTTP status). |
-| `respectDnt`       | `boolean`             | `true`               | Suppress events when the browser's Do Not Track is enabled.    |
-| `excludeLocalhost` | `boolean`             | `true`               | Suppress events on localhost and private IP ranges.            |
+| Prop               | Type                      | Default              | Description                                                     |
+| ------------------ | ------------------------- | -------------------- | -------------------------------------------------------------- |
+| `domain`           | `string`                  | `location.hostname`  | Site identifier sent with every event.                         |
+| `endpoint`         | `string`                  | `/api/event`         | Ingestion endpoint.                                            |
+| `scriptOrigin`     | `string`                  | —                    | First-party origin to derive the endpoint from (`{origin}/api/event`) — your Takt domain or a custom domain to dodge ad-blockers (`endpoint` wins over it). |
+| `outbound`         | `boolean`                 | `false`              | Auto-track outbound link clicks.                               |
+| `files`            | `boolean \| string[]`     | `false`              | Auto-track file downloads; pass extensions to restrict.        |
+| `spa`              | `boolean`                 | `true`               | Track SPA navigations (pushState/replaceState + popstate).     |
+| `track404`         | `boolean`                 | `false`              | Report a `404` event on error pages (`[data-takt-404]` / `<meta name="takt:404">` marker, or a 404 HTTP status). |
+| `respectDnt`       | `boolean`                 | `true`               | Suppress events when the browser's Do Not Track is enabled.    |
+| `excludeLocalhost` | `boolean`                 | `true`               | Suppress events on localhost and private IP ranges.            |
+| `enabled`          | `boolean`                 | `true`               | Master on/off switch — set to `false` to disable all tracking at runtime. |
+| `sampleRate`       | `number`                  | `1`                  | Fraction of sessions to track (0–1).                           |
+| `trackQuery`       | `boolean`                 | `false`              | Include the URL query string in pageview paths.                |
+| `queryParams`      | `string[]`                | —                    | Query parameters to preserve when `trackQuery` is true; omit to keep all. |
+| `scrubUrl`         | `(url: string) => string` | —                    | Transform the URL before it is sent. **Component prop only** — cannot be set as a custom-element attribute. Must be a developer-controlled function; never build it from user input. |
+| `tagged`           | `boolean`                 | `false`              | Auto-track `[data-takt-tag]` clicks.                           |
 
 > Config props are read once when `<Takt>` mounts. Changing them afterwards has no effect — remount the component to reconfigure.
 
