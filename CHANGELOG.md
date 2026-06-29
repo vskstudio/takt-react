@@ -1,5 +1,11 @@
 # @vskstudio/takt-react
 
+## 0.5.1
+
+### Patch Changes
+
+- Require takt-core >=0.6.0, whose default ingest endpoint and stats/widget host are now the hosted Takt origin (https://taktlytics.com). Docs updated to match; no wrapper code change.
+
 ## 0.5.0
 
 ### Minor Changes

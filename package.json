@@ -1,6 +1,6 @@
 {
   "name": "@vskstudio/takt-react",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Idiomatic React wrapper for Takt privacy-friendly analytics",
   "license": "MIT",
   "author": "VSK Studio",
@@ -58,7 +58,7 @@
     "e2e": "playwright test"
   },
   "peerDependencies": {
-    "@vskstudio/takt-core": ">=0.5.0",
+    "@vskstudio/takt-core": ">=0.6.0",
     "react": "^18 || ^19"
   },
   "devDependencies": {

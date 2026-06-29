@@ -7,7 +7,7 @@ import { TaktContext, taktStore, type TaktInstance } from './store'
 export interface TaktProps {
   /** Site identifier sent with every event. Defaults to `location.hostname`. */
   domain?: string
-  /** Ingestion endpoint. Defaults to `/api/event`. */
+  /** Ingestion endpoint. Defaults to `https://taktlytics.com/api/event` (the hosted Takt origin); pass `/api/event` for a same-origin first-party proxy. */
   endpoint?: string
   /** First-party origin to derive the endpoint from (`{origin}/api/event`); `endpoint` wins over it. */
   scriptOrigin?: string
