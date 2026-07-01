@@ -31,6 +31,8 @@ export interface TaktProps {
   trackQuery?: boolean
   /** Query parameters to preserve when `trackQuery` is true; omit to keep all. */
   queryParams?: string[]
+  /** Path prefixes never tracked, e.g. ['/app','/account']. Segment-bounded: '/app' matches '/app' and '/app/…' but not '/application'. */
+  exclude?: string[]
   /** Transform the URL before it is sent; dev-controlled — never build from user input. */
   scrubUrl?: (url: string) => string
   /** Auto-track `[data-takt-tag]` clicks. */
@@ -52,14 +54,15 @@ export function Takt({
   sampleRate,
   trackQuery,
   queryParams,
+  exclude,
   scrubUrl,
   tagged = false,
   children,
 }: TaktProps) {
   const [instance, setInstance] = useState<TaktInstance | null>(null)
   // Read the latest props inside the mount effect without re-running it.
-  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, scrubUrl, tagged })
-  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, scrubUrl, tagged }
+  const props = useRef({ domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, exclude, scrubUrl, tagged })
+  props.current = { domain, endpoint, scriptOrigin, outbound, files, spa, track404, respectDnt, excludeLocalhost, enabled, sampleRate, trackQuery, queryParams, exclude, scrubUrl, tagged }
   // Survives StrictMode's setup→cleanup→setup, so the remount boot can tell it
   // is the same component and skip a duplicate initial pageview.
   const didPageview = useRef(false)
@@ -76,6 +79,7 @@ export function Takt({
       sampleRate: p.sampleRate,
       trackQuery: p.trackQuery,
       queryParams: p.queryParams,
+      exclude: p.exclude,
       scrubUrl: p.scrubUrl,
     })
     const disposers: Array<() => void> = []
