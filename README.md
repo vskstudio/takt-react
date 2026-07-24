@@ -4,6 +4,7 @@
 
 
 > 📚 **Documentation** — [taktlytics.com/docs/wrappers/react](https://taktlytics.com/docs/wrappers/react)
+
 **Idiomatic React wrapper for [Takt](https://github.com/vskstudio/takt-core) privacy-friendly analytics.**
 
 [![npm version](https://img.shields.io/npm/v/@vskstudio/takt-react?color=61dafb&logo=npm)](https://www.npmjs.com/package/@vskstudio/takt-react)
