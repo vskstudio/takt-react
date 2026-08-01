@@ -27,15 +27,15 @@ export interface TaktProps {
   enabled?: boolean
   /** Fraction of sessions to track (0–1). */
   sampleRate?: number
-  /** Include the URL query string in pageview paths. */
+  /** Keep the full query string and hash on URLs. Wins over `queryParams`. */
   trackQuery?: boolean
-  /** Query parameters to preserve when `trackQuery` is true; omit to keep all. */
+  /** Allowlist applied when `trackQuery` is off: keep only these query params. */
   queryParams?: string[]
   /** Path prefixes never tracked, e.g. ['/app','/account']. Segment-bounded: '/app' matches '/app' and '/app/…' but not '/application'. */
   exclude?: string[]
   /** Transform the URL before it is sent; dev-controlled — never build from user input. */
   scrubUrl?: (url: string) => string
-  /** Auto-track `[data-takt-tag]` clicks. */
+  /** Auto-track `[data-takt-event]` clicks; `data-takt-prop-*` attributes become props. */
   tagged?: boolean
   children?: ReactNode
 }
