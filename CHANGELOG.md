@@ -1,5 +1,11 @@
 # @vskstudio/takt-react
 
+## 0.6.2
+
+### Patch Changes
+
+- Realign the README and the JSDoc of the `tagged`, `trackQuery` and `queryParams` props with the package code. The autocapture selector is `[data-takt-event]`, the default ingest endpoint is the hosted Takt collect URL, and the query-string policy follows trackQuery > queryParams > strip. No runtime change.
+
 ## 0.5.1
 
 ### Patch Changes
