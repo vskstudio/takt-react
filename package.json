@@ -1,6 +1,6 @@
 {
   "name": "@vskstudio/takt-react",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Idiomatic React wrapper for Takt privacy-friendly analytics",
   "license": "MIT",
   "author": "VSK Studio",
